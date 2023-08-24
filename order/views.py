@@ -21,6 +21,64 @@ from gfg import settings
 
 
 
+
+def add_select(request, address_id=None):
+    if address_id:
+        address = get_object_or_404(Address, id=address_id)
+    else:
+        address = None
+
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        address_line1 = request.POST.get('address_line1')
+        address_line2 = request.POST.get('address_line2')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        house_no = request.POST.get('house_no')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        postal_code = request.POST.get('postal_code')
+
+        if address:
+            address.first_name = first_name
+            address.last_name = last_name
+            address.addresss_line1 = address_line1
+            address.addresss_line2 = address_line2
+            address.email = email
+            address.phone_number = phone_number
+            address.House_No = house_no
+            address.street = street
+            address.city = city
+            address.state = state
+            address.postal_code = postal_code
+            address.save()
+        else:
+            address = Address.objects.create(
+                user=request.user,
+                first_name=first_name,
+                last_name=last_name,
+                addresss_line1=address_line1,
+                addresss_line2=address_line2,
+                email=email,
+                phone_number=phone_number,
+                House_No=house_no,
+                street=street,
+                city=city,
+                state=state,
+                postal_code=postal_code,
+            )
+
+        # Set this address as the delivery address
+        Address.objects.filter(user=request.user, is_delivery_address=True).update(is_delivery_address=False)
+        address.is_delivery_address = True
+        address.save()
+
+        return redirect('checkout')
+
+    return render(request, 'order/add_select.html', {'address': address})
+
 def Add_address(request, address_id=None):
     if address_id:
         address = get_object_or_404(Address, id=address_id)
@@ -70,6 +128,9 @@ def Add_address(request, address_id=None):
                 postal_code=postal_code,
              
             )
+        Address.objects.filter(user=request.user, is_delivery_address=True).update(is_delivery_address=False)
+        address.is_delivery_address = True
+        address.save()
 
         return redirect('checkout')
 
@@ -317,62 +378,3 @@ def place_order_with_wallet(request, selected_address_id):
 
 
 
-
-
-
-def add_select(request, address_id=None):
-    if address_id:
-        address = get_object_or_404(Address, id=address_id)
-    else:
-        address = None
-
-    if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        address_line1 = request.POST.get('address_line1')
-        address_line2 = request.POST.get('address_line2')
-        email = request.POST.get('email')
-        phone_number = request.POST.get('phone_number')
-        house_no = request.POST.get('house_no')
-        street = request.POST.get('street')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        postal_code = request.POST.get('postal_code')
-
-        if address:
-            address.first_name = first_name
-            address.last_name = last_name
-            address.addresss_line1 = address_line1
-            address.addresss_line2 = address_line2
-            address.email = email
-            address.phone_number = phone_number
-            address.House_No = house_no
-            address.street = street
-            address.city = city
-            address.state = state
-            address.postal_code = postal_code
-            address.save()
-        else:
-            address = Address.objects.create(
-                user=request.user,
-                first_name=first_name,
-                last_name=last_name,
-                addresss_line1=address_line1,
-                addresss_line2=address_line2,
-                email=email,
-                phone_number=phone_number,
-                House_No=house_no,
-                street=street,
-                city=city,
-                state=state,
-                postal_code=postal_code,
-            )
-
-        # Set this address as the delivery address
-        Address.objects.filter(user=request.user, is_delivery_address=True).update(is_delivery_address=False)
-        address.is_delivery_address = True
-        address.save()
-
-        return redirect('checkout')
-
-    return render(request, 'order/add_select.html', {'address': address})

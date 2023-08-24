@@ -57,14 +57,12 @@ def address_list(request):
 
 
 def address_add(request, address_id=None):
-  if not User:
-      return redirect('signin')
-  
-  if address_id:
+   if address_id:
         address = get_object_or_404(Address, id=address_id)
-  else:
+   else:
         address = None
-  if request.method == 'POST':
+
+   if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         address_line1 = request.POST.get('address_line1')
@@ -105,12 +103,14 @@ def address_add(request, address_id=None):
                 city=city,
                 state=state,
                 postal_code=postal_code,
-             
             )
+        Address.objects.filter(user=request.user, is_delivery_address=True).update(is_delivery_address=False)
+        address.is_delivery_address = True
+        address.save()
 
         return redirect('address_list')
 
-  return render(request, 'profile/addressform.html', {'address': address})
+   return render(request, 'profile/addressform.html', {'address': address})
 
 @login_required
 def change_password(request):

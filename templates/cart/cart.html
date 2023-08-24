@@ -1,4 +1,5 @@
 {%load static%}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
   
     <style>
-        /* Custom styles for the body and other elements */
         .form-control-adjustable {
             width: 70px;
         }
@@ -73,22 +73,73 @@
                 margin-right: 0;
             }
         }
+        body {
+            margin-top: 70px; /* To accommodate the fixed navbar */
 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
 
-        footer {
-            background-color: #f2f2f2;
-            padding: 20px;
-          
-            bottom: 0;
-            left: 0;
-            right: 0;
         }
+        .container {
+            margin-top: 70px;
+        }
+        .order-table {
+            margin-top: 70px;
+        }
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+           }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .current {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .selected-page {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+        /* Remove underline from footer links */
+        .footer-container a {
+            text-decoration: none;
+            color: #fff; /* Set the desired text color for the links */
+        }
+        
     </style>
     <title>foot_maniac</title>
 </head>
 
 <body>
-    <!-- Navbar -->
+   
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <a class="navbar-brand" href="/">foot_maniac</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -129,11 +180,7 @@
             </form>
         </div>
     </nav>
- <div class="container my-5" style="margin-top: 40px;"> <!-- Adjust the margin-top value as needed -->
-     <div class="container my-5" style="margin-top: 40px;"> <!-- Adjust the margin-top value as needed -->
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-
+    <section class="vh-100 bg-gray text-white py-4"> 
                 <div class="messages">
                     <!-- Messages and alerts -->
                     {% for message in messages %}
@@ -156,6 +203,8 @@
                                 <th>Remove</th>
                             </tr>
                         </thead>
+
+
                         <tbody>
                             <!-- Cart items loop -->
                             {% for item in items %}
@@ -206,7 +255,7 @@
                             <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
                         </div>
                     </div>
-                    
+
                     <!-- Coupon section -->
                     <div class="row justify-content-start" style="margin-top: 20px;">
                         <div class="col-md-4">
@@ -232,8 +281,8 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
     {%else%}
     <div class="row justify-content-center">
         <div class="col-lg-12 text-center">
@@ -246,14 +295,60 @@
             </div>
         </div>
     </div>
-    
+
     {% endif %}
 
-    
+</div>
+</section>
    <!-- JavaScript dependencies (Bootstrap and Popper.js) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <footer class="footer-container" style="background-color: #808080; padding: 20px;">
+  
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <h5>About</h5>
+              <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Exhibitions</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Customer Care</h5>
+              <ul>
+                <li><a href="#">Returns/Exchange</a></li>
+                <li><a href="#">Delivery Information</a></li>
+                <li><a href="#">Order Tracking</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Contact Information</h5>
+              <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Gift Voucher</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Information</h5>
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site maps</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <p>&copy; 2023 YourSite. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <p>Contact: +1235 2355 98 | Email: info@yoursite.com</p>
+
+            </div>
+
 </body>
 
 </html>
