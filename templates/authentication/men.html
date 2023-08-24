@@ -96,10 +96,9 @@
       width: 100%;
       height: 300px;
     }
-    .card-price a {
+    .card a {
       text-decoration: none;
     }
-    
 
     /* Add this to your existing CSS styles */
 
@@ -145,7 +144,7 @@
         <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
         <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
         <li class="nav-item"><a class="nav-link" href="/children/">kids</a></li>
-        
+    
       </ul>
 
     <!-- ... (previous code) ... -->
@@ -171,32 +170,38 @@
   
   <div class="container">
     <div class="row">
-<!-- ... (previous code) ... -->
-<div class="col-lg-3">
-  <div class="filter-section">
-    <h5>Filter</h5>
-    <form method="GET" action="{% url 'women' %}" class="filter-form">
-
-      <h6>Price</h6>
-      <input type="range" class="form-range mb-3" min="0" max="4000" step="10" id="priceRange" name="min_price">
-      <p>Price Range: <span id="rangeValue">0</span></p> <!-- Remove the id="priceValue" from here -->
-      
-      <h6>Size</h6>
-      <div class="input-group mb-3">
-        <label class="input-group-text" for="sizeDropdown">Size</label>
-        <select class="form-select" id="sizeDropdown" name="size_width">
-          <option value="" selected>Select size</option>
-          {% for size in available_sizes %}
-            <option value="{{ size.size }}">{{ size.size }}</option>
-          {% endfor %}
-        </select>
-      </div>
-    
-      <button type="submit" class="btn btn-primary">Apply Filters</button>
-    </form>
-      </div>
+      <div class="col-lg-3">
+        <div class="filter-section">
+          <h5>Filter</h5>
+          <form method="GET" action="{% url 'women' %}" class="filter-form">
+            <!-- Inside the filter form -->
+<!-- Inside the filter form -->
+<!-- Inside the filter form -->
+<div class="input-group mb-3">
+  <label class="input-group-text" for="priceRangeDropdown">Price Range</label>
+  <select class="form-select" id="priceRangeDropdown" name="price_range">
+    <option value="" selected>Select price range</option>
+    <option value="0-1000">Under 1000</option>
+    <option value="0-2000">Under 2000</option>
+    <option value="0-4000">Under 4000</option>
+  </select>
 </div>
 
+         
+            <div class="input-group mb-3">
+              </select>
+              <label class="input-group-text" for="sizeDropdown">size</label>
+              <select class="form-select" id="sizeDropdown" name="size_width">
+                <option value="" selected>Select size</option>
+                {% for size in available_sizes %}
+                <option value="{{ size.size }}">{{ size.size }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" id="sr" class="btn btn-primary">Apply Filters</button>
+          </form>
+        </div>
+      </div>
 
 <!-- ... (remaining code) ... -->
 
@@ -206,7 +211,7 @@
 
   </div>
 
-  
+    
   <div class="row">
     {% for product, variant in page_obj %}
     <div class="col-lg-4 col-md-6">
@@ -321,20 +326,15 @@
       </div>
   </div>
 </footer>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
-      console.log("Document is ready");
-      
-      const priceRange = document.getElementById("priceRange");
-      const rangeValue = document.getElementById("rangeValue");
-  
-      priceRange.addEventListener("input", function() {
-        console.log("Slider value changed");
-        rangeValue.textContent = priceRange.value;
-      });
+    // Submit the form when price range input changes
+    document.getElementById('sr').addEventListener('click', function() {
+        document.querySelector('.filter-form').submit();
     });
   </script>
+
 
 </html>
