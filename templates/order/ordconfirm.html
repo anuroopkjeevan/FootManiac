@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Order Confirmation</title>
+    <!-- Add your CSS and other dependencies here -->
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>Order Confirmation</h2>
+                <p>Your order with ID: <strong><span id="orderID"></span></strong> has been placed successfully.</p>
+                <p>Total Amount: ₹ <strong><span id="totalAmount"></span></strong></p>
+                <!-- You can add more order details here if needed -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extract order details from URL query parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var order_id = urlParams.get('order_id');
+        var total_amount = urlParams.get('total_amount');
+
+        // Display order details on the page
+        document.getElementById('orderID').textContent = order_id;
+        document.getElementById('totalAmount').textContent = total_amount;
+    </script>
+</body>
+</html>

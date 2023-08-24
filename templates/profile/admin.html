@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel Template</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* New styles to adjust content position */
+        .content {
+            margin-top: 70px;
+            margin-left: 250px;
+            padding: 20px;
+        }
+       
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Your existing styles here */
+        
+        .container {
+            margin-top: 20px;
+        }
+        
+        .order-table {
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .order-item {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+        }
+        
+        .order-item .product-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-image {
+            max-width: 80px;
+            max-height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        
+        .product-details {
+            flex: 1;
+        }
+        
+        .order-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+        
+        .view-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .view-button:hover {
+            background-color: #0056b3;
+        }
+        
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        
+        .navbar h1 {
+            margin: 0;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .add-product-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .add-product-btn:hover {
+            background-color: #218838;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            padding-top: 20px;
+            z-index: 1;
+        }
+        
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #555;
+        }
+        
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .current {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+        
+        .selected-page {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="add-product-btn" onclick="redirectToProductForm()">Adminpanel</button>
+    </div>
+
+    <!-- Sidebar fixed to the left -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="/admin_panel/">Dashboard</a></li>
+            <li><a href="/dashboard/">Users</a></li>
+            <li><a href="/order_list/">Orders</a></li>
+            <li><a href="/product/">Products</a></li>
+            <li><a href="/category/">category</a></li>
+            <li><a href="/coupon_list/">coupons</a></li>
+            <li><a href="/allsales/">sales report</a></li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger" href="/logout/">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="order-table">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Payment Method</th>
+                                <th>Current Status</th>
+                                <th>Order Date</th>
+                                <th>Delivery Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if orders %}
+                                {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.id }}</td>
+                                        <td>{{ order.get_payment_method_display }}</td>
+                                        <td>{{ order.get_payment_status_display }}</td>
+                                        <td>{{ order.order_date }}</td>
+                                        <td>{{ order.delivery_date }}</td>
+                                        <td>
+                                            <form method="POST" action="{% url 'adorder_details' order.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-primary">View Details</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">You haven't placed any orders yet.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if orders.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ orders.previous_page_number }}">previous</a>
+                        {% endif %}
+    
+                        {% for i in orders.paginator.page_range %}
+                            {% if orders.number == i %}
+                                <span class="selected-page">{{ i }}</span>
+                            {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+    
+                        {% if orders.has_next %}
+                            <a href="?page={{ orders.next_page_number }}">next</a>
+                            <a href="?page={{ orders.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</body>
+</html>

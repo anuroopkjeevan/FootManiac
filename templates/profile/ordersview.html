@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
+    <style>
+        /* Custom styles for the body and other elements */
+        body {
+            margin-top: 70px; /* To accommodate the fixed navbar */
+        }
+          .left-div {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 4px;
+            width: 360px;
+            float: left;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 70px;
+        }
+        .order-table {
+            margin-top: 70px;
+        }
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+        .right-div {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 4px;
+            width: 360px;
+            float: right;
+        }
+     
+    </style>
+    <title>foot_maniac</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">foot_maniac</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
+                <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
+               
+               
+                <li class="nav-item"><a class="nav-link" href="/children/">kids</a></li>
+                <li class="nav-item"><a class="nav-link" href="/show_wallet/">wallet</a></li>
+           
+                <li class="nav-item"><a class="nav-link" href="/change_password/">password</a></li>
+                <li class="nav-item"><a class="nav-link" href="/address_list/">Address</a></li>
+                <li class="nav-item"><a class="nav-link" href="/order_list/">Orders</a></li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger" href="/logout/">Logout</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <a href="/profile/" class="btn btn-primary me-2" style="color: black; background-color: #fff;">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="/cart/" class="btn btn-primary me-2">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="/wishlist/" class="btn btn-primary me-2">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <!-- Add the search input field -->
+                <input class="form-control me-2 rounded-pill" type="text" name="q" placeholder="Search"
+                    aria-label="Search" value="{{ request.GET.q }}">
+                <button type="submit" class="btn btn-primary rounded-pill">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+  <!-- ... (previous code) ... -->
+
+  <div class="container mt-5">  
+    {% if ordered_products %}
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered order-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Images</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ordered_product in ordered_products %}
+                            <tr>
+                                <td>{{ ordered_product.name }}</td>
+                                <td>{{ ordered_product.size }}</td>
+                                <td>RS {{ ordered_product.product_price}}</td>
+                                <td>{{ ordered_product.quantity }}</td>
+                                <td>
+                                    {% if ordered_product.images %}
+                                        <div class="product-images">
+                                            {% for image in ordered_product.images %}
+                                                <img class="product-image" src="{{ image.image.url }}" alt="Product Image">
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p>No image available</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 left-div"style="margin-bottom: 20px;">
+                <h4>ORDER_DETAILS</h4>
+                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                <p><strong>Payment Method:</strong> {{ order.get_payment_method_display }}</p>
+                <p><strong> Order_status:</strong> {{ order.get_payment_status_display }}</p>
+        
+                <p><strong>Total Price:</strong> RS {{ order.total_price|floatformat:0 }}</p>
+
+                 
+
+                <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+                <p><strong>Delivery Date:</strong> {{ order.delivery_date }}</p>
+            </div>
+            <div class="col-md-6 right-div" style="margin-left: 20px;margin-bottom: 20px; ">
+                <h4>ADDRESS</h4>
+                <p><strong>Name:</strong> {{ address.first_name }} {{ address.last_name }}</p>
+                <p><strong>Address Line 1:</strong> {{ address.addresss_line1 }}</p>
+                <p><strong>State:</strong> {{ address.state }}</p>
+                <p><strong>Postal Code:</strong> {{ address.postal_code }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>No ordered products found.</p>
+    {% endif %}
+</div>
+
+<!-- ... (rest of the code) ... -->
+<!-- Add this form or button in your template to initiate the order cancellation request -->
+
+ 
+</div>
+
+        <!-- ... (previous code) ... -->
+     <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
+            {% csrf_token %}
+            {% if not order.is_cancelled %}
+                <button type="submit" class="btn btn-danger">Cancel Order</button>
+            {% else %}
+                <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
+            {% endif %}
+        </form> 
+ 
+
+
+
+    <!-- Footer -->
+    <footer style="background-color:  #f2f2f2;; padding: 20px; ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About</h5>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Exhibitions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Customer Care</h5>
+                    <ul>
+                        <li><a href="#">Returns/Exchange</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Information</h5>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Gift Voucher</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Information</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Site maps</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p>&copy; 2023 YourSite. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Contact: +1235 2355 98 | Email: info@yoursite.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+   <!-- JavaScript dependencies (Bootstrap and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

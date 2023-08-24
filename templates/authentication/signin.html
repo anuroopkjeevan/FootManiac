@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        ul.navbar-nav li a {
+            display: block;
+            padding-bottom: 10px; /* Adjust the value as needed */
+        }
+
+        ul.navbar-nav {
+            margin-bottom: 20px; /* Adjust the value as needed */
+        }
+
+        ul.navbar-nav {
+            gap: 35px; /* Adjust the value as needed */
+        }
+
+        ul.navbar-nav li {
+            list-style-type: none;
+        }
+
+        ul.navbar-nav li a {
+            text-decoration: none;
+        }
+        .login-container {
+            margin-top: 50px; /* Adjust the value as needed */
+        }
+
+        .footer-container {
+            margin-top: 300px; /* Adjust the value as needed */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">foot_maniac</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Men</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Women</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="vh-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5 login-container">
+                    <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+                            <div class="mb-md-5 mt-md-4 pb-5">
+                                <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                                <p class="text-white-50 mb-5">Please enter your login and password!</p>
+                                <form action="{% url 'signin' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="text" id="username" name="username" class="form-control form-control-lg" />
+                                        <label class="form-label" for="username">Username</label>
+                                    </div>
+                                    <div class="form-outline form-white mb-4">
+                                        <input type="password" id="pass1" name="password" class="form-control form-control-lg" />
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
+                                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="{% url 'password_reset_request' %}">Forgot password?</a></p>
+                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                                </form>
+                                <div class="d-flex justify-content-center text-center mt-4 pt-1">
+                                    <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                                    <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="mb-0">Don't have an account? <a href="{% url 'signup' %}" class="text-white-50 fw-bold">Sign up</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <footer class="footer-container" style="background-color: #808080; padding: 20px;">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <h5>About</h5>
+              <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Exhibitions</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Customer Care</h5>
+              <ul>
+                <li><a href="#">Returns/Exchange</a></li>
+                <li><a href="#">Delivery Information</a></li>
+                <li><a href="#">Order Tracking</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Contact Information</h5>
+              <ul>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Gift Voucher</a></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <h5>Information</h5>
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Site maps</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <p>&copy; 2023 YourSite. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <p>Contact: +1235 2355 98 | Email: info@yoursite.com</p>
+

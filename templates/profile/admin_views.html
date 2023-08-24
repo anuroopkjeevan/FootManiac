@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel Template</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* New styles to adjust content position */
+        .content {
+            margin-top: 70px;
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Your existing styles here */
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .order-table {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .order-item {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+        }
+
+        .order-item .product-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .product-image {
+            max-width: 80px;
+            max-height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .product-details {
+            flex: 1;
+        }
+
+        .order-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .view-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-button:hover {
+            background-color: #0056b3;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .add-product-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .add-product-btn:hover {
+            background-color: #218838;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            padding-top: 20px;
+            z-index: 1;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #555;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pagination a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .pagination .current {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        .selected-page {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            padding: 10px 16px;
+            border-radius: 4px;
+        }
+             body {
+            margin-top: 70px; /* To accommodate the fixed navbar */
+        }
+     
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .order-table {
+            margin-top: 20px;
+        }
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+        .left-div {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 4px;
+            width: 360px;
+            float: left;
+        }
+
+        .right-div {
+            background-color: #f2f2f2;
+            padding: 20px;
+            border-radius: 4px;
+            width: 360px;
+            float: right;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <button class="add-product-btn" onclick="redirectToProductForm()">Adminpanel</button>
+    </div>
+
+    <!-- Sidebar fixed to the left -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="/admin_panel/">Dashboard</a></li>
+            <li><a href="/dashboard/">Users</a></li>
+            <li><a href="/order_list/">Orders</a></li>
+            <li><a href="/product/">Products</a></li>
+            <li><a href="/category/">category</a></li>
+            <li><a href="/coupon_list/">coupons</a></li>
+            <li><a href="/allsales/">sales report</a></li>
+            <li class="nav-item">
+                <a class="nav-link btn btn-danger" href="/logout/">Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+       <div class="container">
+    {% if ordered_products %}
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered order-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Size</th>
+                            <th>Quantity</th>
+                            <th>price</th>
+                            <th>Images</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ordered_product in ordered_products %}
+                            <tr>
+                                <td>{{ ordered_product.name }}</td>
+                                <td>{{ ordered_product.size }}</td>
+
+                                <td>{{ ordered_product.quantity }}</td>
+                                <td>{{ ordered_product.price|floatformat:0 }}</td>
+                                <td>
+                                    {% if ordered_product.images %}
+                                        <div class="product-images">
+                                            {% for image in ordered_product.images %}
+                                                <img class="product-image" src="{{ image.image.url }}" alt="Product Image">
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <p>No image available</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                    </tbody>
+                                    </table>
+            </div>
+        </div>
+                          <div class="row">
+
+                           <div class="col-md-6 left-div"style="margin-bottom: 20px;">
+                             <h4>ORDER_DETAILS</h4>
+                             <p><strong>Order ID:</strong> {{ order.id }}</p>
+                     <p><strong>Payment Method:</strong> {{ order.get_payment_method_display }}</p>
+                   <p><strong> Order_status:</strong> {{ order.get_payment_status_display }}</p>
+
+
+                   <p><strong>Total Price:</strong> {{ order.total_price|floatformat:0 }}</p>
+                <!-- Display the order details -->
+
+
+
+
+                <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+                <p><strong>Delivery Date:</strong> {{ order.delivery_date }}</p>
+            </div>
+            <div class="col-md-6 right-div" style="margin-bottom: 20px; ">
+                <h4>ADDRESS</h4>
+                <p><strong>Name:</strong> {{ address.first_name }} {{ address.last_name }}</p>
+                <p><strong>Address Line 1:</strong> {{ address.addresss_line1 }}</p>
+                <p><strong>State:</strong> {{ address.state }}</p>
+                <p><strong>Postal Code:</strong> {{ address.postal_code }}</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Render payment_status field manually without the required attribute -->
+                    <label for="{{ form.payment_status.id_for_label }}">Payment Status</label>
+                    <select name="{{ form.payment_status.name }}" id="{{ form.payment_status.id_for_label }}">
+                        {% for value, label in form.payment_status.field.choices %}
+                            {% if value != 'CANCELLED' %}  <!-- Exclude 'CANCELLED' option -->
+                                <option value="{{ value }}" {% if value == form.payment_status.value %}selected{% endif %}>{{ label }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    
+                    <!-- Other form fields and submit button -->
+                    
+                    <button type="submit">Update Order Status</button>
+                </form>
+                <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
+                    {% csrf_token %}
+                    {% if not order.is_cancelled %}
+                        <button type="submit" class="btn btn-danger">Cancel Order</button>
+                    {% else %}
+                        <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
+                    {% endif %}
+                </form> 
+         
+            </div>
+    <!-- Display the form for updating order status -->
+
+        </div>
+    {% else %}
+        <p>No ordered products found.</p>
+    {% endif %}
+</div>
+    </div>
+    
+</body>
+</html>

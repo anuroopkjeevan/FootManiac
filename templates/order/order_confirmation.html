@@ -1,0 +1,214 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
+    <style>
+        /* Custom styles for the body and other elements */
+        body {
+            background-color: #f8f9fa;
+        }
+        /* ... (other custom styles) ... */
+        /* Custom CSS styles go here */
+        /* Example: */
+        body {
+            background-color: #f8f8f8;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        /* Custom style for the Total Amount box */
+        .total-amount-box {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        /* Custom style to align Total Amount box at the right end */
+        @media (min-width: 768px) {
+            .total-amount-box {
+                position: fixed;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%);
+            }
+        }
+        .checkout-container {
+            margin-top: 50px;
+            background-color: #1e1e1e;
+            margin-bottom: 10px;
+            font-family: 'Josefin Sans', sans-serif;
+          }
+
+          .address-card {
+            margin-bottom: 20px;
+            margin-top:20px;
+            padding: 10px;
+            height:500px;
+            background-color: #EDF1FF;
+          }
+
+          .address-card .card-text {
+            margin-bottom: 5px;
+          }
+
+          .address-card .btn-choose {
+            border-color: #1e1e1e;
+            background-color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+          }
+
+          .address-card .btn-choose:hover {
+            background-color: #f8f9fa;
+          }
+
+          .order-summary {
+            border: solid #0B1C39;
+            background-color: #dee6ff;
+            padding: 10px;
+          }
+
+          .order-summary .subtotal,
+          .order-summary .shipping-charge,
+          .order-summary .total {
+            margin-bottom: 5px;
+          }
+
+          .order-summary span {
+            display: inline-block;
+            width: 120px;
+          }
+
+          .order-summary button {
+            margin-top: 10px;
+          }
+          .row{
+              margin-bottom: 20px;
+          }
+          .address-card {
+            background-color: #dee6ff;
+          }
+
+    </style>
+    </style>
+    <title>foot_maniac</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">foot_maniac</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
+                <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shop/">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact/">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about/">About</a></li>
+            </ul>
+            <form class="d-flex" method="GET" action="{% url 'search_view' %}">
+                <a href="/profile/" class="btn btn-primary me-2" style="color: black; bg">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="/cart/" class="btn btn-primary me-2">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="/wishlist/" class="btn btn-primary me-2">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <!-- Add the search input field -->
+                <input class="form-control me-2 rounded-pill" type="text" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                <button type="submit" class="btn btn-primary rounded-pill">Search</button>
+            </form>
+        </div>
+    </nav>
+   
+</div>
+
+
+        <div class="col-lg-12 text-center mt-5">
+            <div class="position-relative">
+                <h3>check on order details</h3>
+                <img src="{% static 'images/Order_confirmed_flat_illustration_concept_vector_generated.jpg' %}" width="700" height="600">
+                <div class="position-absolute top-50 start-50 translate-middle">
+                    
+             
+                </div>
+                <div class="mt-5">
+                    <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+       
+    </div>
+
+
+      </div>
+
+    <footer style="background-color: #f8f8f8; padding: 20px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>About</h5>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Exhibitions</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Customer Care</h5>
+                    <ul>
+                        <li><a href="#">Returns/Exchange</a></li>
+                        <li><a href="#">Delivery Information</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Information</h5>
+                    <ul>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Gift Voucher</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Information</h5>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Site maps</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <p>&copy; 2023 YourSite. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Contact: +1235 2355 98 | Email: info@yoursite.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript dependencies (Bootstrap, jQuery, and Razorpay SDK) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+</body>
+</html>

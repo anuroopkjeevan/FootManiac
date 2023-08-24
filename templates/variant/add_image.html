@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>add_image</title>
+      
+    <!-- Include Bootstrap CSS (use a CDN link or local file) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Include custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+    <!-- Add some custom styles for the table -->
+    <style>
+        /* ... Your existing custom styles ... */
+
+        /* Additional custom style for the form container */
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-container">
+            <h2 class="mb-4">add_image</h2>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'add_image' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if form.instance.variant %}
+                    <p class="mb-3">Variant Model Name: {{ form.instance.variant.model_name }}</p>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Add Image</button>
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+</html>

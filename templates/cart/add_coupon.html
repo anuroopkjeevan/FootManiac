@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel Template</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between; /* Align content horizontally */
+            align-items: center; /* Align content vertically */
+            position: fixed; /* Set the navbar to be fixed */
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999; /* Set a high z-index to make sure the navbar appears on top */
+        }
+
+        .navbar h1 {
+            margin: 0;
+        }
+body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        .sales-table {
+            margin-top: 30px;
+        }
+        /* Style top selling products list */
+        .top-products-list {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .top-products-list li {
+            color: #007bff;
+        }
+        /* Style table */
+        .sales-table th, .sales-table td {
+            text-align: center;
+            padding: 10px;
+        }
+        .sales-table thead th {
+            background-color: #f2f2f2;
+        }
+        .sales-table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+        .sales-table tbody tr:hover {
+            background-color: #f7f7f7;
+        }
+        /* Additional styles */
+        .blue-table {
+            background-color: #e9f2fb;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .invoice-container {
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-left: 20px;
+        }
+        .blue-table th,
+        .blue-table td {
+            padding: 8px;
+            text-align: left;
+        }
+        .blue-table th {
+            background-color: #3572b0;
+            color: #fff;
+        }
+        .product-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+        .large-button {
+            padding: 12px 40px;
+            font-size: 16px;
+            background-color: #3572b0;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .long-button {
+            width: 100%;
+        }
+        .address-container {
+            background-color: #f8f8f8;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .address-label {
+            font-weight: bold;
+        }
+        .content {
+            margin-top: 60px; /* Adjust the top margin to match the height of the navbar */
+            padding: 20px;
+            margin-left: 250px; /* Adjust the left margin to create space for the fixed sidebar */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .add-product-btn {
+            /* Style for the Add Product button */
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .add-product-btn:hover {
+            background-color: #218838;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            padding-top: 20px;
+            z-index: 1; /* Set a higher z-index to make the sidebar appear on top of other elements */
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px;
+            border-bottom: 1px solid #555;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #555;
+        }
+        .form-control-long {
+          width: 150px; /* Adjust the width as needed */
+      }
+   .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+           .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+
+        <button class="add-product-btn" onclick="redirectToProductForm()">Adminpanel</button>
+
+
+
+</div>
+    <!-- Sidebar fixed to the left -->
+
+    <div class="sidebar">
+        <ul>
+           <li><a href="/admin_panel/">Dashboard</a></li>
+            <li><a href="/dashboard/">Users</a></li>
+            <li><a href="/order_list/">Orders</a></li>
+            <li><a href="/product/">Products</a></li>
+            <li><a href="/category/">category</a></li>
+            <li><a href="/coupon_list/">coupons</a></li>
+            <li><a href="/allsales/">salesreport</a>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger" href="/logout/">Logout</a>
+                </li>            </ul>
+        </ul>
+    </div>
+
+<div class="content">
+   <div class="container">
+        <h2>Add Coupon</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.code.id_for_label }}">Coupon Code:</label>
+                {{ form.code }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.discount_type.id_for_label }}">Discount Type:</label>
+                {{ form.discount_type }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.value.id_for_label }}">Discount Value:</label>
+                {{ form.value }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.valid_from.id_for_label }}">Valid From:</label>
+                {{ form.valid_from }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.valid_to.id_for_label }}">Valid To:</label>
+                {{ form.valid_to }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.max_usage_limit.id_for_label }}">Max Usage Limit:</label>
+                {{ form.max_usage_limit }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add Coupon</button>
+        </form>
+    </div>
+    </div>
+</body>
+
+</html>

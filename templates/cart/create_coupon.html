@@ -1,0 +1,65 @@
+<!-- create_coupon.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Coupon</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">Create Coupon</h1>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'create_coupon' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="code">Code</label>
+                                <input type="text" name="code" id="code" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="discount_type">Discount Type</label>
+                                <select name="discount_type" id="discount_type" class="form-control">
+                                    <option value="percentage">Percentage</option>
+                                    <option value="fixed">Fixed Amount</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="value">Value</label>
+                                <input type="number" name="value" id="value" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="valid_from">Valid From</label>
+                                <input type="datetime-local" name="valid_from" id="valid_from" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="valid_to">Valid To</label>
+                                <input type="datetime-local" name="valid_to" id="valid_to" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="max_usage_limit">Max Usage Limit</label>
+                                <input type="number" name="max_usage_limit" id="max_usage_limit" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="used_count">Used Count</label>
+                                <input type="number" name="used_count" id="used_count" class="form-control">
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Create Coupon</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (if needed) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

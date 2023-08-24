@@ -1,0 +1,259 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
+  
+    <style>
+        /* Custom styles for the body and other elements */
+        .form-control-adjustable {
+            width: 70px;
+        }
+ 
+   
+
+        .row {
+            margin-top: 10px; /* Adjusted gap */
+        }
+
+        .coupon-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coupon-box h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .coupon-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .coupon-box li {
+            margin-bottom: 5px;
+        }
+
+        .coupon-box p {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
+        .coupon-input {
+            width: 50px; /* Set the desired width */
+            font-size: 16px; /* Adjust the font size if needed */
+        }
+
+        .coupon-info {
+            background-color: #f2f2f2; /* Adjust the color as needed */
+            padding: 20px;
+            /* Update the margin to use vw (viewport width) or rem (root em) units */
+            margin-right: 2rem;
+        }
+
+        @media (max-width: 767px) {
+            .coupon-info {
+                /* For small devices, reset the margin to keep it in the same position */
+                margin-right: 0;
+            }
+        }
+        @media (max-width: 767px) {
+            ..check {
+                /* For small devices, reset the margin to keep it in the same position */
+                margin-right: 0;
+            }
+        }
+
+
+        footer {
+            background-color: #f2f2f2;
+            padding: 20px;
+          
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    </style>
+    <title>foot_maniac</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="/">foot_maniac</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
+                <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
+
+
+                <li class="nav-item"><a class="nav-link" href="/children/">children</a></li>
+                <li class="nav-item"><a class="nav-link" href="/show_wallet/">wallet</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="/change_password/">password</a></li>
+                <li class="nav-item"><a class="nav-link" href="/address_list/">Address</a></li>
+                <li class="nav-item"><a class="nav-link" href="/order_list/">Orders</a></li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger" href="/logout/">Logout</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <a href="/profile/" class="btn btn-primary me-2" style="color: black; background-color: #fff;">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="/cart/" class="btn btn-primary me-2">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <a href="/wishlist/" class="btn btn-primary me-2">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <!-- Add the search input field -->
+                <input class="form-control me-2 rounded-pill" type="text" name="q" placeholder="Search"
+                    aria-label="Search" value="{{ request.GET.q }}">
+                <button type="submit" class="btn btn-primary rounded-pill">Search</button>
+            </form>
+        </div>
+    </nav>
+ <div class="container my-5" style="margin-top: 40px;"> <!-- Adjust the margin-top value as needed -->
+     <div class="container my-5" style="margin-top: 40px;"> <!-- Adjust the margin-top value as needed -->
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+
+                <div class="messages">
+                    <!-- Messages and alerts -->
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% if items %}
+
+                <div class="container my-5 table-container">
+                    <table class="table table-bordered">
+                        <!-- Cart table headers -->
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>size</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Cart items loop -->
+                            {% for item in items %}
+                            <tr>
+                                <!-- Product details -->
+                                <td>
+                                    <img src="{{ item.product.images.first.image.url }}" alt="{{ item.product.model_name }} Image" width="100">
+                                    <p>{{ item.product.model_name }}</p>
+                                </td>
+                                <!-- Price, Quantity, Total, Remove -->
+                                <td>{{ item.price|floatformat:0 }}</td>  <!-- Use item.discounted_price instead of discounted_total_price -->
+                                <td>
+                                    <!-- Quantity adjustment buttons -->
+                                    <div class="quantity-adjust">
+                                        <a href="{% url 'update_cart_item' item.pk item.quantity|add:'-1' %}" class="btn btn-sm btn-minus">-</a>
+                                        <input type="number" name="quantity_{{ item.pk }}" value="{{ item.quantity }}" min="0.5" class="form-control-adjustable quantity-input">
+                                        <a href="{% url 'update_cart_item' item.pk item.quantity|add:'1' %}" class="btn btn-sm btn-plus">+</a>
+                                    </div>
+
+
+
+                                </td>
+                                 <td>{{ item.product.size }}</td>
+                                <td>
+                                    <!-- Remove item form -->
+                                    <form method="POST" action="{% url 'remove_item' item.pk %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary mr-2">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+
+                <div class="container">
+                    <!-- Checkout section -->
+                    <div class="row justify-content-start" style="background-color: #cce0d2; padding: 20px; border: 1px solid #ccc; border-radius: 5px; width: 300px; margin-left: 0px;">
+                        <div class="col-lg-12 text-center">
+                            <p class="mb-0">Actual Price: ₹{{ total_original_price|floatformat:0 }}</p>
+                            <p class="mb-0">Discount: ₹{{ total_discounted_amount|floatformat:0 }}</p>
+                            <p class="mb-0">Coupon Discount: ₹{{ discount_amount|floatformat:0 }}</p>
+                            <p class="mb-0">Amount Payable: ₹{{ discounted_total_price|floatformat:0 }}</p>
+                            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Coupon section -->
+                    <div class="row justify-content-start" style="margin-top: 20px;">
+                        <div class="col-md-4">
+                            <form class="coupon-form" action="{% url 'cart' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="action" value="{% if applied_coupon %}remove_coupon{% else %}apply_coupon{% endif %}">
+                                <div class="col-lg-6 col-md-8">
+                                    <div class="input-group" style="width: 300px;">
+                                        <select class="form-control rounded-pill coupon-input" name="coupon_code">
+                                            <option value="" selected disabled>Choose a coupon</option>
+                                            {% for coupon in Coupons %}
+                                                <option value="{{ coupon.code }}">{{ coupon.code }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary rounded-pill">
+                                                {% if applied_coupon %}Remove{% else %}Apply{% endif %}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                
+    {%else%}
+    <div class="row justify-content-center">
+        <div class="col-lg-12 text-center">
+            <div class="position-relative">
+                <img src="{% static 'images/cart_empty.jpg' %}" width="700" height="600">
+                <div class="position-absolute top-50 start-50 translate-middle">
+                    <h3>Your cart is empty</h3>
+                    <p>No items in your cart</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% endif %}
+
+    
+   <!-- JavaScript dependencies (Bootstrap and Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+
+</html>
