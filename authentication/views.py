@@ -141,7 +141,7 @@ def signup(request):
         send_mail(subject, message, from_email, to_list, fail_silently=True)
 
         # Email Address confirmation Email
-        current_site = 'http://16.171.10.193/'
+        current_site = get_current_site(request)
         email_subject = "Confirm Email @ GFG - Django Login!!"
         uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
         token = default_token_generator.make_token(myuser)
