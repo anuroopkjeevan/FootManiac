@@ -53,6 +53,11 @@ MIDDLEWARE = [
 ]
 
 
+CORS_ALLOWED_ORIGINS = [
+    "http://16.171.10.193",  # Add your frontend origin(s) here
+    "http://127.0.0.1:9000",
+]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 
