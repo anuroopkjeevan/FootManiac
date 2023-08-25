@@ -73,6 +73,25 @@ def home_2(request):
 
 
 
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.is_superuser:
+                return redirect('admin_panel')
+             
+            else: 
+              return redirect('home')
+          
+         
+            
+        else:            
+            pass    
+
+    return render(request, "authentication/signin.html")
 def signup(request):
     if request.method == "POST":
         # Extract user registration data from the form
@@ -122,7 +141,7 @@ def signup(request):
         send_mail(subject, message, from_email, to_list, fail_silently=True)
 
         # Email Address confirmation Email
-        current_site = get_current_site(request)
+        current_site = 'http://16.171.10.193/'
         email_subject = "Confirm Email @ GFG - Django Login!!"
         uidb64 = urlsafe_base64_encode(force_bytes(myuser.pk))
         token = default_token_generator.make_token(myuser)
@@ -146,25 +165,6 @@ def signup(request):
     return render(request, "authentication/signup.html")
 
 
-def signin(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if user.is_superuser:
-                return redirect('admin_panel')
-             
-            else: 
-              return redirect('home')
-          
-         
-            
-        else:            
-            pass    
-
-    return render(request, "authentication/signin.html")
 
 def activate(request, uidb64, token):
     try:
