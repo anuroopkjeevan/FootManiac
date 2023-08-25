@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 from .import views
+
 urlpatterns = [
     path('place_order/<int:selected_address_id>/', views.place_order, name='place_order'),
     path('Add_address/', views.Add_address, name='Add_address'),
