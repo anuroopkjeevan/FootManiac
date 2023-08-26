@@ -55,22 +55,25 @@ class Color(models.Model):
         return self.name
 
 
+from django.db import models
+from django.utils.text import slugify
+from django.urls import reverse
 
 class size(models.Model):
-    size = models.CharField( max_length=50)  
+    size = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True)  # Define the slug field
+
     def __str__(self):
         return str(self.size)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.size)  # Populate the slug field
         super().save(*args, **kwargs)
 
-    def str(self):
-        return self.name
-    
     def get_absolute_url(self):
-        return reverse('product_detail',kwargs={'slug': self.slug})
+        return reverse('product_detail', kwargs={'slug': self.slug})
+
 
 from django.db import models
 

@@ -73,25 +73,6 @@ def home_2(request):
 
 
 
-def signin(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            if user.is_superuser:
-                return redirect('admin_panel')
-             
-            else: 
-              return redirect('home')
-          
-         
-            
-        else:            
-            pass    
-
-    return render(request, "authentication/signin.html")
 def signup(request):
     if request.method == "POST":
         # Extract user registration data from the form
@@ -165,6 +146,25 @@ def signup(request):
     return render(request, "authentication/signup.html")
 
 
+def signin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.is_superuser:
+                return redirect('admin_panel')
+             
+            else: 
+              return redirect('home')
+          
+         
+            
+        else:            
+            pass    
+
+    return render(request, "authentication/signin.html")
 
 def activate(request, uidb64, token):
     try:
