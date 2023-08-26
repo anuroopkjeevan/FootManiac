@@ -61,7 +61,7 @@ from django.urls import reverse
 
 class size(models.Model):
     size = models.CharField(max_length=50)
-    slug = models.SlugField(unique=True)  # Define the slug field
+    slug = models.SlugField(unique=True,null=True)  # Define the slug field
 
     def __str__(self):
         return str(self.size)
