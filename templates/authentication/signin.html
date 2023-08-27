@@ -7,19 +7,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-... (the rest of the integrity value)" crossorigin="anonymous">
-  
+
     <style>
         ul.navbar-nav li a {
             display: block;
-            padding-bottom: 10px; /* Adjust the value as needed */
+            padding-bottom: 1rem; /* Adjust the value as needed */
         }
 
         ul.navbar-nav {
-            margin-bottom: 20px; /* Adjust the value as needed */
-        }
-
-        ul.navbar-nav {
-            gap: 35px; /* Adjust the value as needed */
+            margin-bottom: 2rem; /* Adjust the value as needed */
+            gap: 1.5rem; /* Adjust the value as needed */
         }
 
         ul.navbar-nav li {
@@ -30,11 +27,11 @@
             text-decoration: none;
         }
         .login-container {
-            margin-top: 50px; /* Adjust the value as needed */
+            margin-top: 5%; /* Adjust the value as needed */
         }
 
         .footer-container {
-            margin-top: 300px; /* Adjust the value as needed */
+            margin-top: 10%; /* Adjust the value as needed */
         }
     </style>
 </head>
@@ -50,9 +47,9 @@
             <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
             <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
             <li class="nav-item"><a class="nav-link" href="/children/">kids</a></li>
-            
+
           </ul>
-    
+
         <!-- ... (previous code) ... -->
     <form class="d-flex" method="GET" action="{% url 'search_view' %}">
     <a href="/profile/" class="btn btn-primary me-2" style="color: black; bg">
@@ -61,11 +58,11 @@
     <a href="/cart/" class="btn btn-primary me-2">
         <i class="fas fa-shopping-cart"></i>
     </a>
-    
+
     <a href="/wishlist/" class="btn btn-primary me-2">
         <i class="fas fa-heart"></i>
     </a>
-    
+
     <!-- Add the search input field -->
     <input class="form-control me-2 rounded-pill" type="text" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
     <button type="submit" class="btn btn-primary rounded-pill">Search</button>
@@ -73,8 +70,9 @@
     <!-- ... (rest of the code) ... -->
     </div>
       </nav>
-      
-    <section class="vh-100 bg-gray text-white py-4"> 
+
+     <section class="vh-100 bg-gray text-white py-4">
+
         <div class="container py-5 h-100">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-8 col-lg-6 col-xl-5 login-container">
@@ -111,7 +109,7 @@
             </div>
         </div>
     </section>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
