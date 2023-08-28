@@ -264,16 +264,25 @@ def women(request):
         'max_price_range': max_price_range,
         'size_width': selected_size,
         'available_sizes': available_sizes,
+        
     }
     
     return render(request, 'authentication/women.html', context)
 
+
+
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-
+    
+    # Retrieve selected_size from POST data
     selected_size = request.POST.get('selected_size')
-
+    
+    category_women = Category.objects.get(name='women')
+    related_products = Product.objects.filter(category=category_women)[:5]
+    
     if selected_size:
+        # Convert selected_size to an integer
+        selected_size = int(selected_size)
         variant = get_object_or_404(ProductVariant, id=selected_size)
     else:
         variant = product.productvariant.first()
@@ -283,7 +292,6 @@ def product_detail(request, product_id):
     # Get the variant discount percentage
     variant_discount_percentage = variant.discount_percentage if variant else None
     
-
     # Calculate category discount percentage
     category_discount_percentage = 0
     try:
@@ -312,6 +320,7 @@ def product_detail(request, product_id):
         'product_variants': product_variants,
         'discounted_price': discounted_price,
         'max_discount_percentage': max_discount_percentage,
+        'related_products': related_products,
     }
     
     return render(request, 'authentication/product.html', context)
