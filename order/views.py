@@ -334,7 +334,7 @@ def place_order_with_wallet(request, selected_address_id):
     # Check if the user's wallet balance is sufficient for the order
     if user_wallet.balance < total_price:
         # Redirect with an error message indicating insufficient balance
-        return redirect('checkout_page')  # Modify this to your appropriate URL
+        return redirect('checkout')  # Modify this to your appropriate URL
 
     # Create the order and deduct the amount from the wallet balance
     order = Order.objects.create(
