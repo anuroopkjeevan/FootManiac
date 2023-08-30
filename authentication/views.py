@@ -408,6 +408,91 @@ def men(request):
     return render(request, 'authentication/men.html', context)
 
 
+
+
+
+def children(request):
+
+    womens_category = Category.objects.get(name='men')
+
+    products = Product.objects.filter(category=womens_category)
+    random_variants = []
+
+    # Get selected filter values
+    selected_price_range = request.GET.get('price_range')
+    selected_size = request.GET.get('size_width')
+
+    # Convert the selected_price_range to min and max price values
+    min_price_range, max_price_range = None, None
+    if selected_price_range:
+        if selected_price_range == '0-1000':
+            max_price_range = 1000
+        elif selected_price_range == '0-2000':
+            max_price_range = 2000
+        elif selected_price_range == '0-4000':
+            max_price_range = 4000
+
+    for product in products:
+        # Get all variants for the current product
+        variants = ProductVariant.objects.filter(product=product, is_active=True)
+
+        if variants.exists():
+            # Apply filters to the variants
+            if selected_size:
+                variants = variants.filter(size__size=selected_size)
+
+            # Filter variants by price range
+            if min_price_range is not None:
+                variants = variants.filter(sale_price__gt=min_price_range)
+            if max_price_range is not None:
+                variants = variants.filter(sale_price__lte=max_price_range)
+
+            if variants.exists():
+                # Select a random variant from the filtered variants
+                random_variant = random.choice(variants)
+
+                # Calculate the discounted price based on the higher discount percentage (variant or category)
+                original_price = random_variant.sale_price
+                variant_discount_percentage = random_variant.discount_percentage
+                category_discount_percentage = 0  # Initialize category discount percentage
+
+                try:
+                    category_discount = Offer.objects.get(category=womens_category)
+                    category_discount_percentage = category_discount.discount_percentage
+                except Offer.DoesNotExist:
+                    pass
+
+                max_discount_percentage = max(variant_discount_percentage, category_discount_percentage)
+                discounted_price = original_price - (original_price * Decimal(max_discount_percentage / 100))
+
+                # Add the discounted price and discount percentage to the random variant
+                random_variant.discounted_price = discounted_price
+                random_variant.greatest_discount_percentage = max_discount_percentage
+
+                # Add the random variant to the list
+                random_variants.append((product, random_variant))
+
+    # Get all available sizes from the database
+    available_sizes = size.objects.all()
+
+    # Pagination
+    items_per_page = 6
+    paginator = Paginator(random_variants, items_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'min_price_range': min_price_range,
+        'max_price_range': max_price_range,
+        'size_width': selected_size,
+        'available_sizes': available_sizes,
+    }
+  
+    return render(request, 'authentication/childrens.html/', context)
+
+
+
 def interface(request):
     # Fetch all Category objects from the database
     categories = Category.objects.all()
