@@ -217,7 +217,7 @@
             <p>{{ product.short_description }}</p>  
             <!-- Add product category if needed -->
             <!-- <p class="text-muted">{{ products.category }}</p> -->
-       <h3 class="discounted-price">{{ discounted_price|floatformat:0 }}</h3>
+       <h3 class="discounted-price">₹{{ discounted_price|floatformat:0 }}</h3>
 
             <div class="form-group mt-4">
               <form method="post" id="sizeForm" action="{% url 'product_detail' product.id %}">
