@@ -156,16 +156,13 @@
     {% else %}
         <p>No ordered products found.</p>
     {% endif %}
-    {% if show_return_option %}
-    <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-primary">Return Order</a>
-{% endif %}
+   
 </div>
 
 <!-- ... (rest of the code) ... -->
 <!-- Add this form or button in your template to initiate the order cancellation request -->
 
- 
-</div>
+
 
 <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
     {% csrf_token %}
@@ -178,7 +175,7 @@
         <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-primary">Return Order</a>
     {% endif %}
 </form>
-
+<div>
 
 
 
