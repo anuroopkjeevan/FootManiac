@@ -179,6 +179,7 @@ def order_list(request):
 
 
 
+@login_required
 def adorder_details(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
@@ -187,24 +188,38 @@ def adorder_details(request, order_id):
     total_price = Decimal('0.00')
 
     for order_item in order_items:
-        product_variant = order_item.product # Use the Decimal version of the price
+        product_variant = order_item.product
         quantity = Decimal(order_item.quantity)
-        discounted_price = Decimal(order_item.price) 
-        total_price = discounted_price * quantity
+        discounted_price = Decimal(order_item.price)
+        total_price += discounted_price * quantity
         ordered_product = {
             'name': product_variant.product.name,
-            'size': str(product_variant.size),  # Use Decimal price here
+            'size': str(product_variant.size),
             'quantity': quantity,
             'images': product_variant.images.all(),
             'price': discounted_price,
         }
         ordered_products.append(ordered_product)
 
-          
-
     form = OrderStatusUpdateForm(request.POST or None, instance=order)
-    
+
     if request.method == 'POST' and form.is_valid():
+        new_status = form.cleaned_data.get('payment_status')
+        if new_status == 'CANCELLED' and order.payment_method != 'CASH_ON_DELIVERY':
+            # Update stock and wallet if cancelling non-COD order
+            for order_item in order_items:
+                product_variant = order_item.product
+                product_variant.stock += order_item.quantity
+                product_variant.save()
+
+            try:
+                user_wallet = Wallet.objects.get(user=request.user)
+            except Wallet.DoesNotExist:
+                pass
+            else:
+                user_wallet.balance += total_price
+                user_wallet.save()
+
         form.save()
         return redirect('adorder_details', order_id=order_id)
 
@@ -212,7 +227,7 @@ def adorder_details(request, order_id):
         'order': order,
         'ordered_products': ordered_products,
         'address': order.address,
-        'total_price': total_price,  # Include the total price in the context
+        'total_price': total_price,
         'form': form,
     }
 
@@ -305,7 +320,7 @@ def cancel_order(request, order_id):
     return redirect('order_details', order_id=order.id)
 
 
-              
+
 @login_required
 def show_wallet(request):
     user = request.user

@@ -325,31 +325,16 @@
                     <!-- Render payment_status field manually without the required attribute -->
                     <label for="{{ form.payment_status.id_for_label }}">Payment Status</label>
                     <select name="{{ form.payment_status.name }}" id="{{ form.payment_status.id_for_label }}">
-                        <option value="{{ value }} selected">{{ order.payment_status }}</option>
-
                         {% for value, label in form.payment_status.field.choices %}
-                            {% if value != 'CANCELLED' %}  <!-- Exclude 'CANCELLED' option -->
-                                <option value="{{ value }}">{{ label }}</option>
-                            {% endif %}
+                            <option value="{{ value }}" {% if value == order.payment_status %}selected{% endif %}>{{ label }}</option>
                         {% endfor %}
                     </select>
                     
-                    <!-- Other form fields and submit button -->
-                    
+
+            
                     <button type="submit">Update Order Status</button>
                 </form>
-        {% comment %} <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
-                    {% csrf_token %}
-                    {% if not order.is_cancelled %}
-                        <button type="submit" class="btn btn-danger">Cancel Order</button>
-                    {% else %}
-                        <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
-                    {% endif %}
-                </form>
-          {% endcomment %}
             </div>
-    <!-- Display the form for updating order status -->
-
         </div>
     {% else %}
         <p>No ordered products found.</p>
