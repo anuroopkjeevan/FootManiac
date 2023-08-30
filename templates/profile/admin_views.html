@@ -338,14 +338,14 @@
                     
                     <button type="submit">Update Order Status</button>
                 </form>
-                {% comment %} <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
+        <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
                     {% csrf_token %}
                     {% if not order.is_cancelled %}
                         <button type="submit" class="btn btn-danger">Cancel Order</button>
                     {% else %}
                         <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
                     {% endif %}
-                </form>  {% endcomment %}
+                </form>
          
             </div>
     <!-- Display the form for updating order status -->
