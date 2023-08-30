@@ -112,7 +112,7 @@
                             <tr>
                                 <td>{{ ordered_product.name }}</td>
                                 <td>{{ ordered_product.size }}</td>
-                                <td>RS {{ ordered_product.product_price}}</td>
+                                <td>RS {{ ordered_product.product_price|floatformat:0}}</td>
                                 <td>{{ ordered_product.quantity }}</td>
                                 <td>
                                     {% if ordered_product.images %}
