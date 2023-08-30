@@ -57,7 +57,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav mx-auto">
-                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="//">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/men/">Men</a></li>
                 <li class="nav-item"><a class="nav-link" href="/women/">Women</a></li>
                
@@ -112,7 +112,7 @@
                             <tr>
                                 <td>{{ ordered_product.name }}</td>
                                 <td>{{ ordered_product.size }}</td>
-                                <td>RS {{ ordered_product.product_price|floatformat:0}}</td>
+                                <td>RS {{ ordered_product.product_price|floatformat:0 }}</td>
                                 <td>{{ ordered_product.quantity }}</td>
                                 <td>
                                     {% if ordered_product.images %}
