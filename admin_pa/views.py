@@ -38,6 +38,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.core.paginator import Paginator
 from decimal import Decimal
+from datetime import datetime
 
 def calculate_discount(variant, category=None):
     original_price = variant.sale_price
