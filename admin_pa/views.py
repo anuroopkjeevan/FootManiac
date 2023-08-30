@@ -518,8 +518,19 @@ def generate_pdf_report(context):
 
     return response
 
+
 def download_report(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+
     all_orders = Order.objects.all()
+
+    if start_date and end_date:
+        start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+        end_date = datetime.strptime(end_date, "%Y-%m-%d").date()
+
+        all_orders = all_orders.filter(order_date__date__range=[start_date, end_date])
+
     all_sales = all_orders.values('order_date__date').annotate(
         total_orders=Sum(1),
         total_price=Sum('total_price'),
@@ -528,9 +539,8 @@ def download_report(request):
 
     context = {
         'all_sales': all_sales,
+        'start_date': start_date,  # Pass start_date to the context
+        'end_date': end_date,      # Pass end_date to the context
     }
 
     return generate_pdf_report(context)
-
-   
-

@@ -221,32 +221,28 @@ def adorder_details(request, order_id):
 
 
 
-
-
 def order_details(request, order_id):
     order = get_object_or_404(Order, id=order_id)
     order_items = OrderItem.objects.filter(order=order)
 
     ordered_products = []
-    total_price = Decimal('0.00')  # Initialize total price to Decimal
-      # Initialize discounted price to Decimal
-    
+    total_price = Decimal('0.00')
+
     for order_item in order_items:
-        product_variant = order_item.product # Use the Decimal version of the price
+        product_variant = order_item.product
         quantity = Decimal(order_item.quantity)
         product_price = Decimal(order_item.price)
-        total_price =   product_price * quantity
+        total_price += product_price * quantity
         ordered_product = {
             'name': product_variant.product.name,
             'size': str(product_variant.size),
             'quantity': quantity,
             'images': product_variant.images.all(),
             'subtotal': product_price * quantity,
-            'product_price':product_price,
+            'product_price': product_price,
         }
         ordered_products.append(ordered_product)
-        
-          
+
     context = {
         'order': order,
         'ordered_products': ordered_products,
@@ -254,8 +250,25 @@ def order_details(request, order_id):
         'total_price': total_price,
     }
 
+    if order.payment_status == 'DELIVERED':  # Check if the payment_status is 'DELIVERED'
+        context['show_return_option'] = True  # Add this key to the context
+
     return render(request, 'profile/ordersview.html', context)
 
+
+# ... other view functions ...
+
+def return_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    # Logic for processing the return order request
+    # You can update the order status, create return records, etc.
+    # Example: Set the order status to 'RETURNED'
+    order.payment_status = 'RETURNED'
+    order.save()
+
+    # Redirect back to the order details page
+    return redirect('order_details', order_id=order_id)
 
 
 

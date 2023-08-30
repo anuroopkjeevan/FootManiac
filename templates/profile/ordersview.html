@@ -156,6 +156,9 @@
     {% else %}
         <p>No ordered products found.</p>
     {% endif %}
+    {% if show_return_option %}
+    <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-primary">Return Order</a>
+{% endif %}
 </div>
 
 <!-- ... (rest of the code) ... -->
@@ -164,16 +167,18 @@
  
 </div>
 
-        <!-- ... (previous code) ... -->
-     <form action="{% url 'cancel_order' order_id=order.id %}" method="post">
-            {% csrf_token %}
-            {% if not order.is_cancelled %}
-                <button type="submit" class="btn btn-danger">Cancel Order</button>
-            {% else %}
-                <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
-            {% endif %}
-        </form> 
- 
+<form action="{% url 'cancel_order' order_id=order.id %}" method="post">
+    {% csrf_token %}
+    {% if not order.is_cancelled %}
+        <button type="submit" class="btn btn-danger">Cancel Order</button>
+    {% else %}
+        <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
+    {% endif %}
+    {% if show_return_option %}
+        <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-primary">Return Order</a>
+    {% endif %}
+</form>
+
 
 
 
